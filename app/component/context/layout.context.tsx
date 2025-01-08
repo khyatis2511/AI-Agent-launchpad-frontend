@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
-import { type AxiosInstance } from 'axios'
-import React, { type FC, createContext, useState, type Dispatch, type SetStateAction, useEffect, type ReactNode } from 'react'
-import { useRouter } from "next/navigation";
-import { API } from '@/app/utils/helper';
 import { whoAmI } from '@/app/lib/api/user.api';
+import { checkSecureRoutes } from '@/app/utils/constants';
+import { API } from '@/app/utils/helper';
+import { type AxiosInstance } from 'axios';
+import { usePathname, useRouter } from "next/navigation";
+import { createContext, useEffect, useState, type Dispatch, type FC, type ReactNode, type SetStateAction } from 'react';
 // import { type ToastOptions, ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
 
@@ -44,6 +45,7 @@ export const LayoutContext = createContext(initialState)
 
 export const LayoutContextProvider: FC<LayoutContextProviderProps> = ({ children }) => {
   const router = useRouter();
+  const pathName = usePathname();
   const [loginUserData, setLoginUserData] = useState<LoginUserData | null>(initialState.loginUserData)
   const [initialLoading, setInitialLoading] = useState(true)
 
@@ -76,8 +78,8 @@ export const LayoutContextProvider: FC<LayoutContextProviderProps> = ({ children
       setInitialLoading(false)
     } catch (error) {
       console.log('Get login user data initial:', error);
-      router.push("/");
-      setInitialLoading(false)
+      if(checkSecureRoutes(pathName)) router.push("/");
+      setInitialLoading(false);
     }
   }
   useEffect(() => {

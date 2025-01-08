@@ -17,3 +17,13 @@ export const agents = [
   { name: 'Question Answering', description: 'Answer questions based on provided context', icon: QuestionAnswerIcon },
   { name: 'Creative Text Generation', description: 'Generate creative text or stories', icon: CreateIcon },
 ];
+
+export const secureRoutes = ['/dashboard', '/agent'];
+
+export const checkSecureRoutes = (pathName: string) => {
+  for(const routes of secureRoutes) {
+    console.log('routes', routes);
+    if(pathName.includes(routes)) return true;
+  }
+  return false;
+}
