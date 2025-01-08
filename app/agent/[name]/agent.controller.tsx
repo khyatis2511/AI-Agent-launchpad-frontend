@@ -7,7 +7,7 @@ import AgentView from './agent.view';
 import { formatHeaderName } from '@/app/utils/helper';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/lib/redux/store';
-import { createSuccess, getAgentChat } from '@/app/lib/redux/slices/chatSlice';
+import { createSuccess, getAgentChat, reset } from '@/app/lib/redux/slices/chatSlice';
 
 const Agent: React.FC = () => {
   const params = useParams();
@@ -52,6 +52,8 @@ const Agent: React.FC = () => {
     setAgentId(id);
     if(id) {
       dispatch(getAgentChat(id));
+    } else {
+      dispatch(reset())
     }
   }, [queryParams, dispatch]);
 

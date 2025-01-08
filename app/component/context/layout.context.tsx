@@ -75,7 +75,8 @@ export const LayoutContextProvider: FC<LayoutContextProviderProps> = ({ children
       }
       setInitialLoading(false)
     } catch (error) {
-      console.log('Get login user data initial:', error)
+      console.log('Get login user data initial:', error);
+      router.push("/");
       setInitialLoading(false)
     }
   }

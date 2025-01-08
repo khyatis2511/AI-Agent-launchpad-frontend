@@ -1,6 +1,7 @@
 'use client';
 import { getAgentChatHistory } from "@/app/lib/redux/slices/chatHistorySlice";
 import { AppDispatch, RootState } from "@/app/lib/redux/store";
+import { formatDate } from "@/app/utils/helper";
 import { useRouter } from "next/navigation";
 import { FC, ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +14,7 @@ interface ChatHistoryObject {
   id: string
   name: string,
   taskType: string
+  createdAt: string
 }
 
 const Sidebar : FC<SidebarProps> = ({children}) => {
@@ -37,10 +39,10 @@ const Sidebar : FC<SidebarProps> = ({children}) => {
               <li 
                 key={chat.id} 
                 className="p-2 bg-gray-700 rounded-lg" 
-                onClick={() => router.push(`/agent/${chat.taskType}?id=${chat.id}`)}
+                onClick={() => router.push(`/agent/${chat.taskType.replaceAll('_', '-')}?id=${chat.id}`)}
               >
                 <h3 className="font-semibold">{chat.name}</h3>
-                <p className="text-sm text-gray-300">{chat.taskType}</p>
+                <p className="text-sm text-gray-300">{formatDate(chat.createdAt)}</p>
               </li>
             ))}
           </ul>
