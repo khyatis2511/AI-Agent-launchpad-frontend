@@ -13,9 +13,9 @@ export const API = (force = false): AxiosInstance => {
   if (axiosInstance && !force) {
     return axiosInstance
   }
-  console.log('process.env.APP_API_END_POINT : ', process.env.APP_API_END_POINT);
+  console.log('process.env.APP_API_END_POINT : ', process.env.NEXT_PUBLIC_APP_API_END_POINT);
   axiosInstance = axios.create({ 
-    baseURL: process.env.APP_API_END_POINT ? process.env.APP_API_END_POINT : 'http://localhost:3088/ai/v1',
+    baseURL: process.env.NEXT_PUBLIC_APP_API_END_POINT ? process.env.NEXT_PUBLIC_APP_API_END_POINT : 'http://localhost:3088/ai/v1',
     withCredentials: true
   })
   return axiosInstance
